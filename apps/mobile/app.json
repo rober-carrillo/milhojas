@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Milhojas",
+    "slug": "milhojas",
+    "scheme": "milhojas",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "platforms": ["android"],
+    "android": {
+      "package": "com.milhojas.app"
+    }
+  }
+}

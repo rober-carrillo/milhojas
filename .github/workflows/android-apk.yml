@@ -1,0 +1,57 @@
+name: Android APK
+
+# Builds an installable test APK (release build signed with the debug key).
+# Download it from the run's "Artifacts" section on GitHub.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "apps/mobile/**"
+      - "packages/core/**"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/android-apk.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/android-apk.yml"
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate native Android project
+        working-directory: apps/mobile
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Build APK
+        working-directory: apps/mobile/android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: milhojas-android-apk
+          path: apps/mobile/android/app/build/outputs/apk/release/*.apk
+          retention-days: 30
