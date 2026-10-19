@@ -1,0 +1,46 @@
+name: Deploy database
+
+# Applies new migrations to the hosted Supabase project after they reach main.
+# The seed (demo vendors) is local-only and is never pushed.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+  workflow_dispatch:
+
+concurrency:
+  group: supabase-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_ID: yrnuyhwinrdnzdtchzdw
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Test migrations on a local database first
+        run: |
+          pnpm exec supabase db start
+          pnpm db:test
+
+      - name: Link the hosted project
+        run: pnpm exec supabase link --project-ref "$SUPABASE_PROJECT_ID"
+
+      - name: Apply migrations
+        run: pnpm exec supabase db push

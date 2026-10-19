@@ -20,6 +20,7 @@ The business layer for informal micro-vendors: a product catalog and end-of-day 
 apps/web        Next.js web app (vendor admin now, consumer feed in Phase 2)
 apps/mobile     Expo Android app
 packages/core   Shared types, zod schemas, money helpers, Supabase client, i18n (es/en)
+supabase        Database migrations, demo seed data, RLS tests
 ```
 
 ## Run it locally
@@ -32,3 +33,16 @@ pnpm dev:mobile                        # scan the QR code with Expo Go on Androi
 pnpm lint && pnpm typecheck && pnpm test
 ```
 CI runs the same checks plus a web build on every pull request.
+
+## Database
+Needs Docker Desktop running. Schema changes go only in `supabase/migrations/`.
+```
+pnpm db:start     # local Postgres with migrations + demo Pereira vendors (supabase/seed.sql)
+pnpm db:test      # RLS and schema tests (supabase/tests/database)
+pnpm db:reset     # rebuild the local database from scratch
+pnpm db:types     # regenerate packages/core/src/database.types.ts after a schema change
+pnpm db:stop
+```
+CI runs the database tests on every pull request. When migrations reach `main`, the
+"Deploy database" workflow tests them again and applies them to the hosted project.
+The demo seed stays local.

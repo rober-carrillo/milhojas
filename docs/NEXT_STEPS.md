@@ -4,16 +4,15 @@
 ## Done
 - [x] Master plan, architecture spec and AI build prompts
 - [x] Channel decision: own platform, own sign-in and chat (`docs/CHANNEL_STRATEGY.md` §0)
-- [x] Private GitHub repo; Mac folder is a clone
+- [x] GitHub repo `rober-carrillo/milhojas`; Mac folder is a clone
 - [x] Code structure: web app, Android app, shared core, automatic checks (PRs #1, #2)
 - [x] Android app on Expo SDK 57, test APK built on every app change (PR #3)
+- [x] Supabase project (East US), GitHub secrets `SUPABASE_ACCESS_TOKEN` and `SUPABASE_DB_PASSWORD`
+- [x] Vercel project: https://mismilhojas.vercel.app
+- [x] Build step P2: database tables, security rules (RLS) with tests, demo Pereira vendors, automatic database deploys
 
 ## To do
-- [ ] **Create the Supabase project (free).** supabase.com → Sign in with GitHub → New project `milhojas` → region **East US (N. Virginia)** (can't be changed later) → save the database password. Send Claude the Project URL and the publishable key (formerly "anon"); both are safe to share.
-- [ ] **Add two GitHub secrets** so database changes deploy automatically: repo → Settings → Secrets and variables → Actions → `SUPABASE_ACCESS_TOKEN` (Supabase account → Access tokens) and `SUPABASE_DB_PASSWORD`. Never paste these in chat.
-- [ ] **Create the Vercel project (free Hobby plan).** vercel.com → Continue with GitHub → Add New → Project → import `rober-carrillo/milhojas` → Root Directory `apps/web` → env vars `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (publishable key) → Deploy. Every pull request then gets its own test link.
 - [ ] **Free Expo account** (expo.dev), only needed for Expo Go, which requires sign-in.
-- [ ] **Build step P2:** database tables and security rules, with tests and demo Pereira vendors (Claude, after Supabase exists).
 - [ ] **Build step P3:** sign-in and business setup, the first version a vendor can try.
 - [ ] **Google Play developer account ($25)**, only for the 12-tester closed test. APKs work without it.
 - [ ] **Phase 0 interviews** in parallel: 15 vendors, use the mockups to keep them concrete.
