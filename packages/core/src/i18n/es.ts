@@ -14,7 +14,6 @@ export const es = {
   "landing.hero_body":
     "Muestra tus productos, conversa con tus clientes del barrio y lleva la cuenta del día. Gratis para vendedores.",
   "landing.cta": "Empezar gratis",
-  "landing.cta_note": "Sin contraseñas. Solo tu correo.",
   "landing.where": "Primero en Pereira y San Francisco.",
   "landing.point1_title": "Tu catálogo en un enlace",
   "landing.point1_body": "Fotos, precios y si estás abierto. Tus clientes lo ven sin crear cuenta.",

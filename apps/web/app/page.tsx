@@ -3,6 +3,7 @@ import { translator, type MessageKey } from "@milhojas/core";
 import { getLocale, numberLocale } from "../lib/i18n";
 import { Demo } from "./demo";
 import { LogoMark } from "./logo";
+import { MapBackground } from "./map-background";
 import { LanguageToggle } from "./language-toggle";
 
 const POINTS: { title: MessageKey; body: MessageKey }[] = [
@@ -17,6 +18,7 @@ export default async function LandingPage() {
 
   return (
     <div className="landing">
+      <MapBackground />
       <header className="site-header">
         <span className="wordmark">
           <LogoMark size={30} />
@@ -32,15 +34,14 @@ export default async function LandingPage() {
 
       <main>
         <section className="hero">
-          <LogoMark size={136} animated title={tr("app.name")} />
-          <h1>{tr("app.tagline")}</h1>
-          <p className="lead">{tr("landing.hero_body")}</p>
-          <div className="hero-cta">
-            <Link href="/entrar" className="button primary large">
-              {tr("landing.cta")}
-            </Link>
-            <span className="fine">{tr("landing.cta_note")}</span>
+          <div className="hero-title">
+            <LogoMark size={72} animated title={tr("app.name")} />
+            <h1>{tr("app.tagline")}</h1>
           </div>
+          <p className="lead">{tr("landing.hero_body")}</p>
+          <Link href="/entrar" className="button primary large">
+            {tr("landing.cta")}
+          </Link>
         </section>
 
         <section className="demo-section" aria-label={tr("demo.label")}>

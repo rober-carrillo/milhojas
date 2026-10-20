@@ -14,7 +14,6 @@ export const en: Record<MessageKey, string> = {
   "landing.hero_body":
     "Show your products, chat with customers nearby and keep the day's tally. Free for vendors.",
   "landing.cta": "Start for free",
-  "landing.cta_note": "No passwords. Just your email.",
   "landing.where": "Starting in Pereira and San Francisco.",
   "landing.point1_title": "Your catalog in one link",
   "landing.point1_body": "Photos, prices and whether you're open. Customers see it without an account.",

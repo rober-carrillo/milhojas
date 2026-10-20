@@ -12,7 +12,8 @@ function Pastry({ y, i }: { y: number; i: number }) {
   return (
     <g className="logo-layer" style={{ "--i": i } as CSSProperties}>
       <rect x="8" y={y} width="80" height="10" rx="5" />
-      <path d={`M18 ${y + 5} q5 -2.4 10 0 t10 0 t10 0 t10 0 t10 0`} />
+      {/* Seven half-waves, 14.75 → 81.25, so both ends mirror each other. */}
+      <path d={`M14.75 ${y + 5} q4.75 -2.4 9.5 0 t9.5 0 t9.5 0 t9.5 0 t9.5 0 t9.5 0 t9.5 0`} />
     </g>
   );
 }
