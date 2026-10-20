@@ -14,8 +14,11 @@
 - [x] Landing page with a live demo: chat, both confirm the order, the walk to the stand and back
 
 ## To do
-- [ ] **Turn on sign-in emails in Supabase** (needed before anyone can sign in on the live site). Authentication → URL Configuration: Site URL `https://mismilhojas.vercel.app`; Redirect URLs `https://mismilhojas.vercel.app/**`, `https://mismilhojas-*.vercel.app/**`, `http://localhost:3000/**`. Then Authentication → Emails: paste `supabase/templates/sign-in.html` into both "Magic Link" and "Confirm signup", subject `Tu enlace para entrar a Milhojas`.
-- [ ] **Pick an email sender before inviting vendors.** Supabase's built-in email only reaches your own team's addresses, a few per hour. Free options: a Gmail account with an app password, or Resend (needs a domain you own).
+- [x] **Connect a Gmail account as the email sender.** In the Gmail account turn on 2-Step Verification, then create an app password at https://myaccount.google.com/apppasswords. Supabase SMTP form: sender = the Gmail address, name `Milhojas`, host `smtp.gmail.com`, port `465`, username = the full Gmail address, password = the 16-letter app password (never the Gmail password). The "personal email provider" warning is fine at pilot volume.
+- [x] **Turn on sign-in emails in Supabase.** Authentication → URL Configuration: Site URL `https://mismilhojas.vercel.app`; Redirect URLs `https://mismilhojas.vercel.app/**`, `https://mismilhojas-*.vercel.app/**`, `http://localhost:3000/**`. Then Authentication → Emails: paste `supabase/templates/sign-in.html` into both "Magic Link" and "Confirm signup", subject `Tu enlace para entrar a Milhojas`.
+- [x] **Logo:** line-art milhoja with a wave of top cream; drops into place on the landing page. Files in `docs/brand/`.
+- [ ] **Add "Continuar con Google" sign-up** (free). You: Google Cloud project, consent screen "Milhojas", web OAuth client with redirect URL `https://yrnuyhwinrdnzdtchzdw.supabase.co/auth/v1/callback`, then paste its ID and secret into Supabase → Authentication → Providers → Google. Claude: the button and the return page.
+- [ ] **Add sign-up by phone (text-message code)** for vendors without email or Google. Paid: about US$0.06 per code to Colombia through Twilio (see `docs/CHANNEL_STRATEGY.md`), so it needs a budget OK. Supabase connects to Twilio directly; WhatsApp codes through Twilio are also possible.
 - [ ] **Build step P4:** sign-in and business setup on the Android app, reusing `packages/core`.
 - [ ] **Free Expo account** (expo.dev), only needed for Expo Go, which requires sign-in.
 - [ ] **Google Play developer account ($25)**, only for the 12-tester closed test. APKs work without it.

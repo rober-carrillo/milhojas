@@ -2,6 +2,7 @@ import Link from "next/link";
 import { translator, type MessageKey } from "@milhojas/core";
 import { getLocale, numberLocale } from "../lib/i18n";
 import { Demo } from "./demo";
+import { LogoMark } from "./logo";
 import { LanguageToggle } from "./language-toggle";
 
 const POINTS: { title: MessageKey; body: MessageKey }[] = [
@@ -17,7 +18,10 @@ export default async function LandingPage() {
   return (
     <div className="landing">
       <header className="site-header">
-        <span className="wordmark">{tr("app.name")}</span>
+        <span className="wordmark">
+          <LogoMark size={30} />
+          {tr("app.name")}
+        </span>
         <div className="header-tools">
           <LanguageToggle locale={locale} />
           <Link href="/entrar" className="button small">
@@ -28,6 +32,7 @@ export default async function LandingPage() {
 
       <main>
         <section className="hero">
+          <LogoMark size={136} animated title={tr("app.name")} />
           <h1>{tr("app.tagline")}</h1>
           <p className="lead">{tr("landing.hero_body")}</p>
           <div className="hero-cta">

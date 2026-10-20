@@ -2,6 +2,7 @@ import Link from "next/link";
 import { translator } from "@milhojas/core";
 import { getLocale } from "../../lib/i18n";
 import { LanguageToggle } from "../language-toggle";
+import { LogoMark } from "../logo";
 import { SignInForm } from "./sign-in-form";
 
 export default async function SignInPage({
@@ -17,6 +18,7 @@ export default async function SignInPage({
     <div className="narrow-page">
       <header className="site-header">
         <Link href="/" className="wordmark">
+          <LogoMark size={28} />
           {tr("app.name")}
         </Link>
         <LanguageToggle locale={locale} />

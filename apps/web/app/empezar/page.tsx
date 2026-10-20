@@ -4,6 +4,7 @@ import { nextOnboardingStep, translator } from "@milhojas/core";
 import { getLocale } from "../../lib/i18n";
 import { currentVendor } from "../../lib/vendor";
 import { LanguageToggle } from "../language-toggle";
+import { LogoMark } from "../logo";
 import { BusinessForm } from "./business-form";
 import { ProfileForm } from "./profile-form";
 
@@ -20,6 +21,7 @@ export default async function OnboardingPage() {
     <div className="narrow-page">
       <header className="site-header">
         <Link href="/" className="wordmark">
+          <LogoMark size={28} />
           {tr("app.name")}
         </Link>
         <LanguageToggle locale={locale} />

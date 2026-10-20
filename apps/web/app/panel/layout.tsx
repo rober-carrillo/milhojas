@@ -6,6 +6,7 @@ import { getLocale } from "../../lib/i18n";
 import { currentVendor } from "../../lib/vendor";
 import { signOut } from "../actions";
 import { LanguageToggle } from "../language-toggle";
+import { LogoMark } from "../logo";
 
 export default async function PanelLayout({ children }: { children: ReactNode }) {
   const [locale, vendor] = await Promise.all([getLocale(), currentVendor()]);
@@ -18,6 +19,7 @@ export default async function PanelLayout({ children }: { children: ReactNode })
       <header className="panel-header">
         <div className="panel-title">
           <Link href="/" className="wordmark">
+            <LogoMark size={28} />
             {tr("app.name")}
           </Link>
           <span className="business-name">{vendor.business?.name}</span>

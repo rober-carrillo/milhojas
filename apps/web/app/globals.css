@@ -109,9 +109,26 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, .chip input:f
   padding: 16px 0;
 }
 .header-tools { display: flex; align-items: center; gap: 8px; }
-.wordmark { font: 700 1.35rem var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
-.narrow-page { max-width: 30rem; margin: 0 auto; padding: 0 16px 48px; }
-.form-card { padding: 24px 20px; }
+.wordmark {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 700 1.35rem var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+}
+
+/* Logo: line-art milhoja. Animated: dropped from the air, layers land together. */
+.logo-mark { flex: none; color: var(--accent); overflow: visible; }
+.logo-mark.animated { transform-origin: 50% 85%; animation: logo-squash 0.45s ease-out 0.8s both; }
+.logo-mark.animated .logo-layer { animation: logo-fall 0.6s cubic-bezier(0.55, 0, 1, 0.45) 0.2s both; }
+@keyframes logo-fall {
+  from { opacity: 0; transform: translateY(calc(-24px - var(--i) * 6px)); }
+  20% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
+@keyframes logo-squash {
+  0% { transform: none; }
+  30% { transform: scale(1.06, 0.88); }
+  65% { transform: scale(0.98, 1.04); }
+  100% { transform: none; }
+}
 
 /* Forms */
 .field { display: flex; flex-direction: column; gap: 6px; border: 0; margin: 0; padding: 0; min-width: 0; }
@@ -173,7 +190,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 
 /* Landing */
 .landing { max-width: 64rem; margin: 0 auto; padding: 0 16px; }
-.hero { max-width: 40rem; margin: 24px auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.hero { max-width: 40rem; margin: 24px auto 0; padding-top: 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .hero h1 { font-size: clamp(2.2rem, 8vw, 3.6rem); letter-spacing: -0.02em; }
 .lead { font-size: 1.15rem; color: var(--muted); max-width: 34rem; }
 .hero-cta { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 6px; }
@@ -308,6 +325,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 @keyframes d-pulse { from { transform: scale(0.6); opacity: 0.35; } to { transform: scale(1.4); opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
+  .logo-mark.animated, .logo-mark.animated .logo-layer { animation: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 @media (min-width: 48rem) {
