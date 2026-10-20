@@ -12,6 +12,18 @@ describe("i18n", () => {
     }
   });
 
+  it("uses the same {placeholders} in both languages", () => {
+    const names = (text: string) => [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
+    for (const key of Object.keys(es) as (keyof typeof es)[]) {
+      expect(names(en[key]), key).toEqual(names(es[key]));
+    }
+  });
+
+  it("fills placeholders", () => {
+    expect(t("es", "onboarding.step", { n: 2 })).toBe("Paso 2 de 3");
+    expect(t("en", "auth.check_body", { email: "a@b.co" })).toContain("a@b.co");
+  });
+
   it("translates by locale", () => {
     expect(t("es", "home.vendor_cta")).toBe("Soy vendedor");
     expect(t("en", "home.vendor_cta")).toBe("I'm a vendor");

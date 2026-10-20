@@ -252,15 +252,20 @@ figure.shot figcaption span{color:var(--muted);font-size:.85rem;line-height:1.4}
     <ul class="check">
       <li><label><input type="checkbox" id="n-plan" checked><span class="t">Master plan, architecture spec and AI build prompts written</span></label></li>
       <li><label><input type="checkbox" id="n-channel2" checked><span class="t">Channel decided: own platform, own sign-in and chat<small>docs/CHANNEL_STRATEGY.md §0</small></span></label></li>
-      <li><label><input type="checkbox" id="n-repo" checked><span class="t">Private GitHub repo, Mac folder kept in sync with it</span></label></li>
+      <li><label><input type="checkbox" id="n-repo" checked><span class="t">GitHub repo rober-carrillo/milhojas, Mac folder kept in sync with it</span></label></li>
       <li><label><input type="checkbox" id="n-gh" checked><span class="t">Signed in to GitHub on your Mac</span></label></li>
       <li><label><input type="checkbox" id="n-scaffold" checked><span class="t">Code structure merged: web app, Android app, shared core, automatic checks<small>PRs #1 and #2</small></span></label></li>
       <li><label><input type="checkbox" id="n-apk" checked><span class="t">Android app on Expo SDK 57, with a test APK built on every change<small>PR #3</small></span></label></li>
-      <li><label><input type="checkbox" id="n-supa"><span class="t">Create the Supabase project (free)<small>supabase.com → Sign in with GitHub → New project "milhojas" → region East US (N. Virginia) → save the database password. Send Claude the Project URL and publishable key.</small></span></label></li>
-      <li><label><input type="checkbox" id="n-secrets"><span class="t">Add two GitHub secrets so database changes deploy automatically<small>Repo → Settings → Secrets and variables → Actions: SUPABASE_ACCESS_TOKEN (Supabase account → Access tokens) and SUPABASE_DB_PASSWORD. Never paste these in chat.</small></span></label></li>
-      <li><label><input type="checkbox" id="n-vercel"><span class="t">Create the Vercel project (free Hobby plan)<small>vercel.com → Continue with GitHub → Add New → Project → import rober-carrillo/milhojas → Root Directory: apps/web → add the Supabase URL and publishable key as environment variables → Deploy.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-supa" checked><span class="t">Create the Supabase project (free)<small>Done Oct 19: East US. The URL and publishable key are in Vercel and on your Mac.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-secrets" checked><span class="t">Add two GitHub secrets so database changes deploy automatically<small>Done Oct 19: SUPABASE_ACCESS_TOKEN and SUPABASE_DB_PASSWORD. Never paste these in chat.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-vercel" checked><span class="t">Create the Vercel project (free Hobby plan)<small>Done Oct 19: live at mismilhojas.vercel.app. Every push to main redeploys it.</small></span></label></li>
       <li><label><input type="checkbox" id="n-expo"><span class="t">Create a free Expo account<small>expo.dev. Expo Go asks you to sign in before it opens a project.</small></span></label></li>
-      <li><label><input type="checkbox" id="n-db"><span class="t">Database tables and security rules, with tests and demo vendors (build step P2)<small>Claude builds this once the Supabase project exists.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-db" checked><span class="t">Database tables and security rules, with tests and demo vendors (build step P2)<small>Done Oct 19: 41 automated checks. Database changes deploy by themselves when they reach main.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-p3" checked><span class="t">Sign-in and business setup on the web (build step P3)<small>Done Oct 19: email link or 6-digit code → your name → your business → product list, in Spanish and English.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-landing" checked><span class="t">Landing page with a live demo<small>Done Oct 19: a chat replay, both sides confirming the order, and a small map of the walk to the stand and back.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-authcfg"><span class="t">Turn on sign-in emails in Supabase (about 5 minutes)<small>Authentication → URL Configuration: Site URL https://mismilhojas.vercel.app; Redirect URLs https://mismilhojas.vercel.app/**, https://mismilhojas-*.vercel.app/** and http://localhost:3000/**. Then Authentication → Emails: paste supabase/templates/sign-in.html into "Magic Link" and "Confirm signup", subject "Tu enlace para entrar a Milhojas".</small></span></label></li>
+      <li><label><input type="checkbox" id="n-smtp"><span class="t">Pick an email sender before inviting vendors<small>Supabase's built-in email only reaches your own team's addresses, a few per hour. Fine for testing, not for vendors.</small></span></label></li>
+      <li><label><input type="checkbox" id="n-p4"><span class="t">Sign-in and business setup on the Android app (build step P4)</span></label></li>
       <li><label><input type="checkbox" id="n-play"><span class="t">Create the Google Play developer account ($25)<small>Only needed for the 12-tester closed test. APKs work without it.</small></span></label></li>
     </ul>
   </section>
@@ -268,11 +273,11 @@ figure.shot figcaption span{color:var(--muted);font-size:.85rem;line-height:1.4}
   <section aria-labelledby="test" class="col">
     <div class="eyebrow">What you can try today</div>
     <h2 id="test">Test it yourself</h2>
-    <p class="lede">Today both apps show only the placeholder home screen: the Milhojas name, the tagline and a "Soy vendedor" button that doesn't do anything yet. The screens below are mockups. Testing now proves the pipeline works on your phone, so each new screen reaches you the same way.</p>
+    <p class="lede">The website now has the landing page with its live demo, sign-in, and business setup that ends on your product list. Adding products comes next (P5). The Android app still shows only the placeholder home screen until P4.</p>
     <div class="decisions">
       <div class="dec"><h3>Android APK</h3><p>On GitHub: Actions → "Android APK" → latest run → Artifacts → milhojas-android-apk. Unzip it, send the .apk to your Android phone, and allow installing from this source when asked. A new APK builds automatically whenever the app changes. Each one is kept for 30 days.</p></div>
       <div class="dec"><h3>Expo Go</h3><p>Install Expo Go from Google Play and sign in. On your Mac, run <code>git pull</code>, <code>corepack enable</code>, <code>pnpm install</code> and <code>pnpm dev:mobile</code>, then scan the QR code. The phone must be on the same Wi-Fi. Expo Go updates to SDK 58 in a few weeks. After that it won't open SDK 57 projects until the app is upgraded. The APK isn't affected.</p></div>
-      <div class="dec"><h3>Web</h3><p>On your Mac, run <code>pnpm dev:web</code> and open http://localhost:3000. To view it on your phone, use the "Network" address it prints, on the same Wi-Fi. Once Vercel is set up, every change gets its own link that anyone can open.</p></div>
+      <div class="dec"><h3>Web</h3><p>Open https://mismilhojas.vercel.app on any phone or computer. To sign in there, first do "Turn on sign-in emails in Supabase" above. On your Mac, <code>pnpm dev:web</code> runs it locally; with <code>pnpm db:start</code> the sign-in emails land at http://127.0.0.1:54324 and you can sign in as the demo vendor rosa@demo.milhojas.test.</p></div>
     </div>
   </section>
 
@@ -280,7 +285,7 @@ figure.shot figcaption span{color:var(--muted);font-size:.85rem;line-height:1.4}
     <div class="screens-head col">
       <div class="eyebrow">What people will see · design mockups with sample data</div>
       <h2 id="screens">Screens</h2>
-      <p class="lede">These are drawn mockups, not working screens yet. The web version comes first and works in any phone browser. The Android app reuses the same screens and backend, plus offline tallying and notifications.</p>
+      <p class="lede">These are drawn mockups. Sign-in and business setup are now real on the website; the rest is still to build. The web version comes first and works in any phone browser. The Android app reuses the same screens and backend, plus offline tallying and notifications.</p>
     </div>
 
     <h3>Web: consumers</h3>
@@ -559,9 +564,9 @@ figure.shot figcaption span{color:var(--muted);font-size:.85rem;line-height:1.4}
           <div class="weeks"><table>
             <thead><tr><th>Weeks</th><th>Work</th><th>Done when</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>Code structure, CI, test APK builds <b>(done)</b>; Supabase and Vercel projects, Play account, recruit 12 testers</td><td>CI green in both apps</td></tr>
-              <tr><td>2</td><td>Database tables, security rules (RLS) and their tests, sample data</td><td>Vendor A can't touch vendor B's data; sales are never public</td></tr>
-              <tr><td>3–4</td><td>Sign-in by email link and onboarding</td><td>New user reaches an empty product list in &lt;2 min</td></tr>
+              <tr><td>1</td><td>Code structure, CI, test APK builds, Supabase and Vercel projects <b>(done)</b>; Play account, recruit 12 testers</td><td>CI green in both apps</td></tr>
+              <tr><td>2</td><td>Database tables, security rules (RLS) and their tests, sample data <b>(done)</b></td><td>Vendor A can't touch vendor B's data; sales are never public</td></tr>
+              <tr><td>3–4</td><td>Sign-in by email link and onboarding <b>(web done; Android next)</b></td><td>New user reaches an empty product list in &lt;2 min</td></tr>
               <tr><td>5–6</td><td>Product add/edit/remove with photos</td><td>Test vendor adds 5 products unassisted in &lt;10 min</td></tr>
               <tr><td>7–8</td><td>"Hoy" tally, summaries, offline queue and sync</td><td>Entry saved offline appears after reconnecting</td></tr>
               <tr><td>9</td><td>Polish, Spanish copy review, low-end Android test, installable web app</td><td>Every screen usable one-handed</td></tr>
@@ -640,7 +645,7 @@ figure.shot figcaption span{color:var(--muted);font-size:.85rem;line-height:1.4}
     <div class="decisions">
       <div class="dec"><h3>Interviews vs. building</h3><p>The plan said to talk to 15 vendors before writing app code. The code has started, so run the interviews in parallel and let them steer the screens above.</p></div>
       <div class="dec"><h3>Buyer sign-in</h3><p>Email link only, or also "Continuar con Google"? Both are free. Google is one tap for most Android users.</p></div>
-      <div class="dec"><h3>Project region</h3><p>East US (N. Virginia) serves both Pereira and SF well. It can't be changed after the project is created.</p></div>
+      <div class="dec"><h3>Email sender</h3><p>Before real vendors sign in, Supabase needs an email sender of your own. Free options include a Gmail account with an app password (a few hundred a day) or a service like Resend, which needs a domain you own.</p></div>
     </div>
   </section>
 

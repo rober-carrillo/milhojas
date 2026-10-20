@@ -43,6 +43,10 @@ pnpm db:reset     # rebuild the local database from scratch
 pnpm db:types     # regenerate packages/core/src/database.types.ts after a schema change
 pnpm db:stop
 ```
+For sign-in locally, point `apps/web/.env.local` at the URL and publishable key that
+`pnpm db:start` prints; emails (link and code) land in http://127.0.0.1:54324. Demo vendors:
+`rosa@demo.milhojas.test`, `jhon@demo.milhojas.test`, `lucia@demo.milhojas.test`.
+
 CI runs the database tests on every pull request. When migrations reach `main`, the
 "Deploy database" workflow tests them again and applies them to the hosted project.
 The demo seed stays local.

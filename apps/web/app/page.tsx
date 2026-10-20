@@ -1,17 +1,62 @@
-import { DEFAULT_LOCALE, translator } from "@milhojas/core";
+import Link from "next/link";
+import { translator, type MessageKey } from "@milhojas/core";
+import { getLocale, numberLocale } from "../lib/i18n";
+import { Demo } from "./demo";
+import { LanguageToggle } from "./language-toggle";
 
-// Placeholder home. Vendor onboarding (P3) and the consumer feed (Phase 2) replace it.
-export default function HomePage() {
-  const tr = translator(DEFAULT_LOCALE);
+const POINTS: { title: MessageKey; body: MessageKey }[] = [
+  { title: "landing.point1_title", body: "landing.point1_body" },
+  { title: "landing.point2_title", body: "landing.point2_body" },
+  { title: "landing.point3_title", body: "landing.point3_body" },
+];
+
+export default async function LandingPage() {
+  const locale = await getLocale();
+  const tr = translator(locale);
+
   return (
-    <main className="home">
-      <h1>{tr("app.name")}</h1>
-      <p className="tagline">{tr("app.tagline")}</p>
-      <div className="actions">
-        <span className="button primary">{tr("home.vendor_cta")}</span>
-        <span className="button">{tr("home.consumer_cta")}</span>
-      </div>
-      <p className="note">{tr("home.coming_soon")}</p>
-    </main>
+    <div className="landing">
+      <header className="site-header">
+        <span className="wordmark">{tr("app.name")}</span>
+        <div className="header-tools">
+          <LanguageToggle locale={locale} />
+          <Link href="/entrar" className="button small">
+            {tr("landing.sign_in")}
+          </Link>
+        </div>
+      </header>
+
+      <main>
+        <section className="hero">
+          <h1>{tr("app.tagline")}</h1>
+          <p className="lead">{tr("landing.hero_body")}</p>
+          <div className="hero-cta">
+            <Link href="/entrar" className="button primary large">
+              {tr("landing.cta")}
+            </Link>
+            <span className="fine">{tr("landing.cta_note")}</span>
+          </div>
+        </section>
+
+        <section className="demo-section" aria-label={tr("demo.label")}>
+          <Demo locale={locale} numberLocale={numberLocale(locale)} />
+        </section>
+
+        <section className="points">
+          {POINTS.map((point, i) => (
+            <article key={point.title} className="point">
+              <span className="point-num">{i + 1}</span>
+              <h2>{tr(point.title)}</h2>
+              <p className="muted">{tr(point.body)}</p>
+            </article>
+          ))}
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <span>{tr("landing.where")}</span>
+        <span>{tr("landing.footer")}</span>
+      </footer>
+    </div>
   );
 }

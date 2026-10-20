@@ -3,19 +3,27 @@
 -- Sign in locally as any of them with a magic link; the email lands in the
 -- local inbox (http://127.0.0.1:54324).
 
+-- Token columns must be '' rather than NULL or Supabase Auth cannot load the user.
 insert into auth.users (instance_id, id, aud, role, email, encrypted_password,
-                        email_confirmed_at, raw_app_meta_data, raw_user_meta_data,
-                        created_at, updated_at)
-values
-  ('00000000-0000-0000-0000-000000000000', '11111111-1111-4111-8111-111111111111',
-   'authenticated', 'authenticated', 'rosa@demo.milhojas.test', '', now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now()),
-  ('00000000-0000-0000-0000-000000000000', '22222222-2222-4222-8222-222222222222',
-   'authenticated', 'authenticated', 'jhon@demo.milhojas.test', '', now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now()),
-  ('00000000-0000-0000-0000-000000000000', '33333333-3333-4333-8333-333333333333',
-   'authenticated', 'authenticated', 'lucia@demo.milhojas.test', '', now(),
-   '{"provider":"email","providers":["email"]}', '{}', now(), now());
+                        email_confirmed_at, confirmation_token, recovery_token,
+                        email_change, email_change_token_new,
+                        raw_app_meta_data, raw_user_meta_data, created_at, updated_at)
+select '00000000-0000-0000-0000-000000000000', u.id, 'authenticated', 'authenticated', u.email, '',
+       now(), '', '', '', '',
+       '{"provider":"email","providers":["email"]}', '{}', now(), now()
+  from (values
+    ('11111111-1111-4111-8111-111111111111'::uuid, 'rosa@demo.milhojas.test'),
+    ('22222222-2222-4222-8222-222222222222'::uuid, 'jhon@demo.milhojas.test'),
+    ('33333333-3333-4333-8333-333333333333'::uuid, 'lucia@demo.milhojas.test')
+  ) as u (id, email);
+
+insert into auth.identities (id, user_id, provider_id, provider, identity_data,
+                             last_sign_in_at, created_at, updated_at)
+select gen_random_uuid(), u.id, u.id::text, 'email',
+       jsonb_build_object('sub', u.id::text, 'email', u.email, 'email_verified', true),
+       now(), now(), now()
+  from auth.users u
+ where u.email like '%@demo.milhojas.test';
 
 insert into public.profiles (id, role, display_name, phone, locale)
 values
@@ -34,7 +42,7 @@ values
    'frutas', 4.8126, -75.6921, true, '+573104445566', 'COP'),
   ('a3333333-3333-4333-8333-333333333333', '33333333-3333-4333-8333-333333333333',
    'Tejidos Lucía', 'Manillas y mochilas tejidas a mano, Parque El Lago.',
-   'artesanías', 4.8094, -75.6937, false, '+573207778899', 'COP');
+   'artesanias', 4.8094, -75.6937, false, '+573207778899', 'COP');
 
 insert into public.products (id, business_id, name, price, cost, is_active, sort_order)
 values

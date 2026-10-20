@@ -10,21 +10,25 @@
 - [x] Supabase project (East US), GitHub secrets `SUPABASE_ACCESS_TOKEN` and `SUPABASE_DB_PASSWORD`
 - [x] Vercel project: https://mismilhojas.vercel.app
 - [x] Build step P2: database tables, security rules (RLS) with tests, demo Pereira vendors, automatic database deploys
+- [x] Build step P3: sign-in (email link or 6-digit code) and business setup on the web, Spanish and English
+- [x] Landing page with a live demo: chat, both confirm the order, the walk to the stand and back
 
 ## To do
+- [ ] **Turn on sign-in emails in Supabase** (needed before anyone can sign in on the live site). Authentication → URL Configuration: Site URL `https://mismilhojas.vercel.app`; Redirect URLs `https://mismilhojas.vercel.app/**`, `https://mismilhojas-*.vercel.app/**`, `http://localhost:3000/**`. Then Authentication → Emails: paste `supabase/templates/sign-in.html` into both "Magic Link" and "Confirm signup", subject `Tu enlace para entrar a Milhojas`.
+- [ ] **Pick an email sender before inviting vendors.** Supabase's built-in email only reaches your own team's addresses, a few per hour. Free options: a Gmail account with an app password, or Resend (needs a domain you own).
+- [ ] **Build step P4:** sign-in and business setup on the Android app, reusing `packages/core`.
 - [ ] **Free Expo account** (expo.dev), only needed for Expo Go, which requires sign-in.
-- [ ] **Build step P3:** sign-in and business setup, the first version a vendor can try.
 - [ ] **Google Play developer account ($25)**, only for the 12-tester closed test. APKs work without it.
 - [ ] **Phase 0 interviews** in parallel: 15 vendors, use the mockups to keep them concrete.
 
 ## Test it yourself
-Both apps currently show only the placeholder home screen. Testing now proves each new screen will reach your phone the same way.
+The website has the landing page, sign-in and business setup. The Android app still shows the placeholder home screen until P4.
 
 | Way | How |
 |---|---|
 | **Android APK** | GitHub → Actions → "Android APK" → latest run → Artifacts → `milhojas-android-apk`. Unzip, send the `.apk` to your Android phone, allow installing from that source. Rebuilt on every app change; each kept 30 days. |
 | **Expo Go** | Install Expo Go from Google Play and sign in. On the Mac: `git pull && corepack enable && pnpm install && pnpm dev:mobile`, then scan the QR code (same Wi-Fi). Expo Go moves to SDK 58 in a few weeks and will then need the app upgraded; the APK is unaffected. |
-| **Web** | On the Mac: `pnpm dev:web` → http://localhost:3000, or the printed "Network" address from a phone on the same Wi-Fi. After Vercel is set up, every change has a shareable link. |
+| **Web** | https://mismilhojas.vercel.app (sign-in works once the Supabase email settings above are done). On the Mac: `pnpm db:start` then `pnpm dev:web` with `apps/web/.env.local` pointing at the local URL and key that `db:start` prints; sign-in emails land at http://127.0.0.1:54324, and the demo vendor is `rosa@demo.milhojas.test`. |
 
 ## Open decisions
 - **Interviews vs. building:** run the 15 vendor interviews in parallel with the build and let them steer the screens.
